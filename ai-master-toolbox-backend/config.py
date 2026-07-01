@@ -1,0 +1,8 @@
+# chatgpt功能的常量
+class CHATGPT_CONFIG:
+    PRICE_OF_CHATGPT_EVERY_MONTH = 4.9 # 每月的价格
+    PRICE_OF_CHATGPT_EVERY_THREE_MONTH = 12.9 # 每3个月的价格
+    PRICE_OF_CHATGPT_EVERY_YEAR = 40.9 # 每年的价格
+    FREE_COUNT_OF_CHATGPT_PER_DAY = 5 # 每天的免费使用次数
+    LIMIT_COUNT_OF_CHATGPT_PER_HOUR = 30 # 每小时的使用次数上限
+    LIMIT_COUNT_OF_CHATGPT_PER_DAY = 200 # 每天的使用次数上限

@@ -1,0 +1,65 @@
+version: "3"
+
+services:
+    ai-django:
+        container_name: ai-django
+        build:
+            context: .
+            dockerfile: ./docker/django/Dockerfile
+        depends_on:
+            - ai-mysql
+            - ai-redis
+        environment:
+            - DEBUG=False
+            - prject_media=/media
+            - prject_logs=/logs
+            - DJANGO_SETTINGS_MODULE=ai_master_toolbox.settings
+        volumes:
+            - /opt/data/aimastertoolbox/media:/media  # 映射媒体文件目录
+            - /opt/data/aimastertoolbox/logs:/logs    # 映射日志文件目录
+            - .:/app   # 映射项目
+        expose:
+            - 8000
+        restart: unless-stopped
+
+    ai-mysql:
+        container_name: ai-mysql
+        image: mysql:8
+        restart: unless-stopped
+        ports:
+            - 33060:3306
+        expose:
+            - 3306
+        environment:
+            MYSQL_ROOT_PASSWORD: 'qingwen123'
+            MYSQL_USER: aimaster
+            MYSQL_PASSWORD: aimaster123
+        volumes:
+            - mysql:/var/lib/mysql
+
+    ai-redis:
+        container_name: ai-redis
+        image: redis:latest
+        restart: unless-stopped
+        volumes:
+            - redis:/opt/data/aimastertoolbox/redis
+
+    # Nginx Service
+    ai-web:
+        container_name: ai-web
+        build:
+            context: ../
+            dockerfile: ./ai-master-toolbox-backend/docker/web/Dockerfile
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - /opt/ai-master-toolbox-backend/docker/web/nginx.conf:/etc/nginx/conf.d/default.conf  # 映射Nginx配置文件
+            - /opt/data/aimastertoolbox/nginx/logs:/var/log/nginx
+            - /opt/data/aimastertoolbox/ssl/cer_files:/etc/nginx/ssl
+        depends_on:
+            - ai-django
+
+volumes:
+    mysql:
+    redis:

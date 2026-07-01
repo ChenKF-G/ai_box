@@ -1,0 +1,24 @@
+# 忽略临时文件和日志文件
+*.log
+*.tmp
+
+# 忽略生成的编译文件和构建目录
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 忽略 IDE 自动生成的文件
+.vscode/
+.idea/
+
+# 忽略 Node.js 的依赖目录
+node_modules/
+
+# 忽略数据库文件
+*.db
+*.sqlite3
+
+# 忽略日志和媒体
+media/
+logs/

@@ -1,0 +1,10 @@
+{
+  "socketUrl": {
+    "development": "ws://127.0.0.1:8000",
+    "production": "wss://aimastertoolbox.cn"
+  },
+  "serverHost": {
+    "development": "http://127.0.0.1:8000",
+    "production": "http://1.14.46.208:8000"
+  }
+}
